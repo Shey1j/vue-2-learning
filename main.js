@@ -9,7 +9,13 @@ Vue.component("user-details-form", {
       phoneNumber: null,
       emailAddress: null,
       message: null,
-      errors: [],
+      errors: {
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+        emailAddress: '',
+        message: '',
+      },
     };
   },
   methods: {
@@ -21,23 +27,7 @@ Vue.component("user-details-form", {
         this.emailAddress &&
         this.message
       ) {
-        if (!this.validEmail(this.emailAddress)) {
-          this.errors.push("Valid Email Address is required");
-        }
-        if (!this.validPhoneNumber(this.phoneNumber)) {
-          this.errors.push(
-            "Valid Phone Number is required and should not be less than 11 digits"
-          );
-        }
-        if (!this.validMessage(this.message)) {
-          this.errors.push("Your intro should not exceed 200 characters");
-        }
-        if (
-          this.validEmail(this.emailAddress) &&
-          this.validMessage(this.message) &&
-          this.validPhoneNumber(this.phoneNumber)
-        ) {
-          this.errors = [];
+        if (!this.errors.firstName && !this.errors.lastName && !this.errors.phoneNumber && !this.errors.emailAddress && !this.errors.message) {
           let userInfo = {
             firstName: this.firstName,
             lastName: this.lastName,
@@ -54,24 +44,47 @@ Vue.component("user-details-form", {
         }
       }
     },
+    validFirstName(fName) {
+      var reg = /^[A-Za-z]+$/;
+      if (!reg.test(fName)) {
+        this.errors.firstName = "First name should be alphabets"
+      } else {
+        this.errors.firstName = "";
+      }
+    },
+    validLastName(lName) {
+      var reg = /^[A-Za-z]+$/;
+      if (!reg.test(lName)) {
+        this.errors.lastName = "Last name should be alphabets"
+      } else {
+        this.errors.lastName = "";
+      }
+    },
     validEmail(email) {
       var re =
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
+      if (!re.test(email)) {
+        this.errors.emailAddress = "Valid Email Address is required"
+      } else {
+        this.errors.emailAddress = "";
+      };
     },
     validPhoneNumber(phoneNo) {
       var reg = /^[0-9]*$/;
       if (reg.test(parseInt(phoneNo, 10)) && phoneNo.length < 11) {
-        return false;
-      } else if (reg.test(parseInt(phoneNo, 10)) && phoneNo.length === 11) {
-        return true;
+        this.errors.phoneNumber = "Phone number must be 11 digits"
+      } else if (!reg.test(parseInt(phoneNo, 10))) {
+        this.errors.phoneNumber = "Phone number must be digits"
+      } else {
+        this.errors.phoneNumber = "";
       }
     },
     validMessage(userMessage) {
       if (userMessage.length > 200) {
-        return false;
+        this.errors.message = "Intro should not exceed 200 characters"
+      } else {
+        this.errors.message = "";
       }
-      return true;
     },
   },
   computed: {

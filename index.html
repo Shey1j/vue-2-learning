@@ -56,31 +56,30 @@
           <h3 class="text-center">User Details</h3>
 
           <form @submit.prevent="onUserDetailsSubmit">
-            <p v-if="errors.length">
-                <span>Please attend to the following error(s):</span>
-                <ul>
-                    <li class="error-message" v-for="error in errors">{{ error }}</li>
-                </ul>
-            </p>
               <div class="form-content mb-4">
                 <label for="firstName">First Name:</label>
-                <input type="text" v-model="firstName" id="firstName">
+                <input type="text" v-model="firstName" id="firstName"  @keyup="validFirstName(firstName)">
+                <p v-show="errors.firstName" class="error-message">{{ errors.firstName }}</p>
               </div>
               <div class="form-content mb-4">
                 <label for="lastName">Last Name:</label>
-                <input type="text" v-model="lastName" id="lastName">
+                <input type="text" v-model="lastName" id="lastName" @keyup="validLastName(lastName)">
+                <p v-show="errors.lastName" class="error-message">{{ errors.lastName }}</p>
               </div>
               <div class="form-content mb-4">
                 <label for="phoneNumber">Phone Number:</label>
-                <input type="tel" v-model="phoneNumber" id="phoneNumber">
+                <input type="tel" v-model="phoneNumber" id="phoneNumber" @keyup="validPhoneNumber(phoneNumber)">
+                <p v-show="errors.phoneNumber" class="error-message">{{ errors.phoneNumber }}</p>
               </div>
               <div class="form-content mb-4">
                 <label for="email">Email Address:</label>
-                <input type="email" v-model="emailAddress" id="email">
+                <input type="email" v-model="emailAddress" id="email" @keyup="validEmail(emailAddress)">
+                <p v-show="errors.emailAddress" class="error-message">{{ errors.emailAddress }}</p>
               </div>
               <div class="form-content mb-4">
                 <label for="message">About yourself {{ messageCount }}/200:</label>
-                <textarea type="text" v-model="message" id="message"></textarea>
+                <textarea type="text" v-model="message" id="message" @keyup="validMessage(message)"></textarea>
+                <p v-show="errors.message" class="error-message">{{ errors.message }}</p>
               </div>
               <div class="form-content">
                   <input type="submit" value="Submit" :disabled="isDisabled">
