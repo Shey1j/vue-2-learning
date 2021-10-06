@@ -56,6 +56,12 @@
           <h3 class="text-center">User Details</h3>
 
           <form @submit.prevent="onUserDetailsSubmit">
+            <p v-if="errors.length">
+                <span>Please attend to the following error(s):</span>
+                <ul>
+                    <li class="error-message" v-for="error in errors">{{ error }}</li>
+                </ul>
+            </p>
               <div class="form-content mb-4">
                 <label for="firstName">First Name:</label>
                 <input type="text" v-model="firstName" id="firstName">

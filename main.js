@@ -32,7 +32,12 @@ Vue.component("user-details-form", {
         if (!this.validMessage(this.message)) {
           this.errors.push("Your intro should not exceed 200 characters");
         }
-        if (this.errors.length === 0) {
+        if (
+          this.validEmail(this.emailAddress) &&
+          this.validMessage(this.message) &&
+          this.validPhoneNumber(this.phoneNumber)
+        ) {
+          this.errors = [];
           let userInfo = {
             firstName: this.firstName,
             lastName: this.lastName,
@@ -85,19 +90,19 @@ Vue.component("user-details-form", {
   },
 });
 
-Vue.component('user-details-table', {
-    template: '#user-details-table-template',
-    data() {
-        return {
-            users: [],
-        }
-    },
-    mounted() {
-        eventBus.$on('user-details-submitted', userInfo => {
-            this.users.push(userInfo)
-        })
-    }
-})
+Vue.component("user-details-table", {
+  template: "#user-details-table-template",
+  data() {
+    return {
+      users: [],
+    };
+  },
+  mounted() {
+    eventBus.$on("user-details-submitted", (userInfo) => {
+      this.users.push(userInfo);
+    });
+  },
+});
 
 var app = new Vue({
   el: "#app",
