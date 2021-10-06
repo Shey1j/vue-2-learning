@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Vue 2 Learning</title>
+  </head>
+  <body>
+    <div class="nav-bar">
+      <h1 class="text-center">Vue 2 Learning</h1>
+    </div>
+    <div id="app">
+      <div class="container">
+        <user-details-form></user-details-form>
+        <user-details-table></user-details-table>
+      </div>
+    </div>
+
+    <script type="text/x-template" id="user-details-table-template">
+      <div v-show="users.length > 0" class="user-details-display">
+        <div class="user-table-container mt-5">
+            <table class="table w-100">
+              <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">User name</th>
+                    <th scope="col">Phone number</th>
+                    <th scope="col">Email Address</th>
+                    <th scope="col">Message</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(user, index) in users" :key="index">
+                    <th scope="row">{{ index + 1 }}</th>
+                    <td>{{ user.firstName + ' ' + user.lastName }}</td>
+                    <td>{{ user.phoneNumber }}</td>
+                    <td>{{ user.emailAddress }}</td>
+                    <td>{{ user.message }}</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/x-template" id="user-details-form-template">
+      <div class="user-form-container px-3 py-4 mt-5 mx-auto">
+          <h3 class="text-center">User Details</h3>
+
+          <form @submit.prevent="onUserDetailsSubmit">
+              <div class="form-content mb-4">
+                <label for="firstName">First Name:</label>
+                <input type="text" v-model="firstName" id="firstName">
+              </div>
+              <div class="form-content mb-4">
+                <label for="lastName">Last Name:</label>
+                <input type="text" v-model="lastName" id="lastName">
+              </div>
+              <div class="form-content mb-4">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="tel" v-model="phoneNumber" id="phoneNumber">
+              </div>
+              <div class="form-content mb-4">
+                <label for="email">Email Address:</label>
+                <input type="email" v-model="emailAddress" id="email">
+              </div>
+              <div class="form-content mb-4">
+                <label for="message">About yourself {{ messageCount }}/200:</label>
+                <textarea type="text" v-model="message" id="message"></textarea>
+              </div>
+              <div class="form-content">
+                  <input type="submit" value="Submit" :disabled="isDisabled">
+              </div>
+          </form>
+      </div>
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+.body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.nav-bar {
+    padding: 1rem 0;
+    background-color: blue;
+}
+
+.nav-bar h1 {
+    color: white;
+}
+
+.user-form-container {
+    border: 1px solid grey;
+    border-radius: 0.625rem;
+    width: 31.25rem;
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-content:not(:last-child) {
+    margin-bottom: 0.625rem;
+}
